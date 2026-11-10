@@ -20,11 +20,11 @@ npm run dev      # http://localhost:5173
 Other scripts:
 
 ```bash
-npm test         # run the unit tests once
-npm run test:watch
-npm run lint     # oxlint
-npm run build    # production build into dist/
-npm run preview  # serve the production build
+npm test            # run the unit tests once, print results, exit
+npm run test:watch  # re-run tests on save; idles on "Waiting for file changes", q to quit
+npm run lint        # oxlint
+npm run build       # production build into dist/
+npm run preview     # serve the production build
 ```
 
 ### Logging in
