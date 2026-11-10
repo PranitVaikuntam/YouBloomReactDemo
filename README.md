@@ -63,34 +63,3 @@ src/
 
 The full design rationale is in [`docs/plans/react-demo-app.md`](docs/plans/react-demo-app.md).
 
-## Decisions
-
-**Context API rather than Redux Toolkit.** The entire global state is one phone string. A store,
-a slice, and a provider would be more machinery than a single `useState` needs. The task lists
-Context as an equally acceptable option.
-
-**Vitest in place of Jest.** The task permits "any preferred tool". Running Jest against Vite's
-ESM pipeline needs babel and transform glue, which is config noise in a project judged on
-cleanliness. Vitest's API is Jest-compatible — same `describe`/`it`/`expect`, same React Testing
-Library usage.
-
-**`/users` rather than `/posts` from jsonplaceholder.** `/posts` has 100 records, which exercises
-search harder, but a post only has a title and a body. A user has name, username, email, phone,
-website, a full address, and a company, so the detail page shows genuinely detailed information —
-and it pairs naturally with a phone-number login.
-
-**Any valid country code is accepted, not just `+254`.** The task says the number should start
-with a country code "like +254" and gives `+254712345678` as an example of a valid number — both
-are examples, not the rule. Hard-coding one string would make the validation decorative, so
-`validatePhone` accepts any E.164-shaped number: a `+`, then 8–15 digits, with spaces, hyphens,
-dots, and parentheses stripped first.
-
-**The detail page fetches its own record by route param** rather than receiving it through
-router state. That costs one extra request and makes deep links and reloads work.
-
-## Known limitations
-
-- No request timeout. A request that hangs rather than failing leaves the spinner up. Choosing a
-  threshold for a 10-record demo against a public API is guesswork, and too low a value turns a
-  slow connection into a false error.
-- Search filters in memory and is not debounced — with 10 records it is immediate.
